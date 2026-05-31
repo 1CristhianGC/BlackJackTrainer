@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blackjack 21</title>
+  <link rel="stylesheet" href="table_style.css" />
+</head>
+<body>
+
+  <div id="game">
+
+    <!-- Header -->
+    <div id="header">
+      <h1>Blackjack 21</h1>
+      <div id="balance-display">Balance: $<span id="balance">1000</span></div>
+    </div>
+
+    <!-- Dealer area -->
+    <section id="dealer-area">
+      <h2>Dealer <span id="dealer-score"></span></h2>
+      <div id="dealer-cards" class="card-row"></div>
+    </section>
+
+    <!-- Message -->
+    <div id="message"></div>
+
+    <!-- Player area -->
+    <section id="player-area">
+      <h2>You</h2>
+      <div id="player-hands-container"></div>
+    </section>
+
+    <!-- Betting chips -->
+    <div id="bet-area">
+      <button class="chip" data-amount="5">$5</button>
+      <button class="chip" data-amount="10">$10</button>
+      <button class="chip" data-amount="25">$25</button>
+      <button class="chip" data-amount="50">$50</button>
+      <button class="chip" data-amount="100">$100</button>
+      <div id="bet-display">Bet: $<span id="current-bet">0</span></div>
+    </div>
+
+    <!-- Action buttons -->
+    <div id="actions">
+      <button id="btn-clear">Clear Bet</button>
+      <button id="btn-deal">Deal</button>
+      <button id="btn-hit" disabled>Hit</button>
+      <button id="btn-stand" disabled>Stand</button>
+      <button id="btn-double" disabled>Double Down</button>
+      <button id="btn-split" disabled>Split</button>
+      <button id="btn-insurance" disabled>Insurance</button>
+      <button id="btn-surrender" disabled>Surrender</button>
+    </div>
+
+  </div>
+
+  <script src="black_jack_trainer.js"></script>
+</body>
+</html>

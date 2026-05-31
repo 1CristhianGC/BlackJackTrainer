@@ -1,0 +1,265 @@
+/* Standard box formatting */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Georgia, serif;  /* Font of the body of the website  */
+  background: #2b4237;        /* Color of the body of the website */
+  color: #f0f0f0;             /* Color of the text on the website */
+  min-height: 100vh;            /* minHeight of the body of the website */
+  display: flex;                /* Display flex */
+  justify-content: center;      /* Justify content */
+  align-items: flex-start;      /* Align items */
+  padding: 24px 16px;           /* Padding */
+}
+
+/* Body Formatting */
+#game {
+  width: 30%;                 /* Width of the game */ 
+  max-width: 680px;           /* Max width of the game */
+  display: flex;              /* Display flex */  
+  flex-direction: column;     /* Flex direction column */
+  gap: 20px;                  /* Gap between elements */
+}
+
+/* header function */
+#header {
+  display: flex;                        /* Display flex */
+  justify-content: space-between;       /* Justify content */
+  align-items: center;                  /* Align items */
+}
+
+#header h1 {
+  font-size: 28px;                      /* Font size of the header */
+  color: #f0c060;                     /* Color of the header */     
+  letter-spacing: 2px;                  /* Letter spacing of the header */     
+}
+
+#balance-display {
+  background: rgba(0,0,0,0.3);        /* Background of the balance display */
+  padding: 6px 14px;                    /* Padding of the balance display */
+  border-radius: 20px;                  /* Border radius of the balance display */ 
+  font-size: 14px;                      /* Font size of the balance display */
+  color: #a0e0b0;                     /* Color of the balance display */
+}
+
+/* Dealing Boxes */
+#dealer-area,
+#player-area {
+  background: rgba(205, 63, 63, 0.2);                     /* Background of the dealer and player area */
+  border: 4px solid rgba(255, 255, 255, 0.1);             /* Border of the dealer and player area */
+  border-radius: 20px;                                      /* Border radius of the dealer and player area */
+  padding: 16px;                                            /* Padding of the dealer and player area */
+  min-height: 130px;                                        /* Min height of the dealer and player area */
+}
+
+#dealer-area h2,
+#player-area h2 {
+  font-size: 14px;                /* Font size of the header */ 
+  font-weight: normal;            /* Font weight of the header */
+  color: #e3e4e3;               /* Color of the header */
+  letter-spacing: 1px;            /* Letter spacing of the header */
+  margin-bottom: 10px;            /* Margin bottom of the header */
+  text-transform: uppercase;      /* Text transform of the header */
+}
+
+/*  Player hands container */
+#player-hands-container {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/*  Individual hand zone */
+.hand-zone {
+  flex: 1;
+  min-width: 140px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 2px solid transparent;  
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.hand-zone.active-hand {
+  border-color: #f0c060;          
+  background: rgba(240, 192, 96, 0.05);
+}
+
+.hand-zone.done-hand {
+  opacity: 0.6;            
+}       
+
+.hand-label {
+  font-size: 12px;
+  color: #a0c0a8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/*  Card row  */
+.card-row {
+  display: flex;                    /* Display flex */  
+  gap: 8px;                         /* Gap between cards */
+  flex-wrap: wrap;                  /* Wrap cards to the next line if needed */
+  min-height: 80px;                 /* Min height of the card row */
+  align-items: center;              /* Align items to the center vertically */
+}
+
+/*  Individual card  */
+.card {
+  width: 53px;                                    /* Width of a card (standard poker card ratio) */
+  height: 80px;                                   /* Height of a card */
+  background: #ffffff;                          /* Background of a card */
+  border-radius: 10px;                            /* Border radius of a card */
+  border: 2px solid #808080;                    /* Border of a card */
+  display: flex;                                  /* Display flex */
+  flex-direction: column;                         /* Flex direction column */   
+  justify-content: space-between;                 /* Justify content */
+  padding: 4px 6px;                               /* Padding of a card */
+  font-size: 15px;                                /* Font size of a card */
+  font-weight: bold;                              /* Font weight of a card */
+color: #000000;                                 /* Color of a card */   
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+}
+
+.card.red {
+  color: #db2814;                               /* Color of red cards */
+}
+
+/* Top-left rank+suit */
+.card .top {
+  font-size: 14px;                  /* Font size of the top-left rank+suit */
+  line-height: 1;                   /* Line height of the top-left rank+suit */
+}
+
+/* Center suit */
+.card .mid {
+  text-align: center;           /* Text align of the center suit */
+  font-size: 27px;              /* Font size of the center suit */
+  line-height: 1;               /* Line height of the center suit */
+}
+
+/* Bottom-right rank+suit (upside down) */
+.card .bot {
+  font-size: 14px;                  /* Font size of the bottom-right rank+suit */   
+  line-height: 1;                   /* Line height of the bottom-right rank+suit */
+  align-self: flex-end;             /* Align self to the end to push it to the bottom */
+  transform: rotate(180deg);        /* Rotate 180 degrees to make it upside down */
+}
+
+/* Face-down card */
+.card.face-down {
+  background: #f9fbff;              /* Background of a face-down card */
+  border-color: #000000;            /* Border color of a face-down card */
+  justify-content: center;            /* Justify content of a face-down card */
+  align-items: center;                /* Align items of a face-down card */
+  color: rgba(255,255,255,0.2);     /* Color of a face-down card (faded out) */
+  font-size: 28px;                    /* Font size of a face-down card (bigger to show the pattern) */        
+}
+
+.card.face-down .top,       
+.card.face-down .mid,
+.card.face-down .bot {
+  display: none;              /* Hide the rank and suit on a face-down card */
+}
+
+/* Score badge  */
+#dealer-score,
+#player-score {
+  background: rgba(0,0,0,0.3);    /* Background of the score badge */
+  border-radius: 10px;              /* Border radius of the score badge */
+  padding: 1px 8px;                 /* Padding of the score badge */        
+  font-size: 15px;                  /* Font size of the score badge */ 
+  color: #80d0a0;                 /* Color of the score badge */
+  margin-left: 6px;                 /* Margin left of the score badge */
+}
+
+/*  Message  */
+#message {
+  text-align: center;           /* Text align of the message */
+  font-size: 20px;              /* Font size of the message */
+  font-weight: bold;            /* Font weight of the message */
+  min-height: 30px;             /* Min height of the message to prevent layout shift when it appears/disappears */
+  color: #f0c060;             /* Color of the message */
+  letter-spacing: 1px;          /* Letter spacing of the message */
+}
+
+/*  Chips  */
+#bet-area {
+  display: flex;                /* Display flex */  
+  align-items: center;          /* Align items to the center vertically */
+  gap: 15px;                    /* Gap between chips and bet display */        
+  flex-wrap: wrap;              /* Wrap chips to the next line if needed */
+}
+
+.chip {
+  width: 48px;                                  /* Width of a chip (circular, so same as height) */
+  height: 48px;                                 /* Height of a chip */
+  border-radius: 50%;                           /* Border radius of a chip (50% to make it circular) */
+  border: 3px dashed rgba(255,255,255,0.5);   /* Border of a chip (dashed to make it look like a real chip) */
+  cursor: pointer;                              /* Cursor pointer to indicate it's clickable */
+  font-weight: bold;                            /* Font weight of a chip */
+  font-size: 12px;                              /* Font size of a chip */
+  font-family: Times New Roman, serif;          /* Font family of a chip */  
+  transition: transform 0.1s;                   /* Transition for the transform property to make the hover/active effects smooth */
+}
+
+.chip:hover { transform: scale(1.25); }                                 /* Scale up the chip on hover to indicate it's clickable */
+.chip:active { transform: scale(.95); }                                 /* Scale down the chip on click to give feedback */      
+.chip:disabled { opacity: 0.35; cursor: not-allowed; transform: none; } /* When disabled, fade out the chip and change cursor to indicate it's not clickable. */
+
+/* Chip colors */
+.chip[data-amount="5"]   { background: #a3a0a0; color: #FDDC5C; }   
+.chip[data-amount="10"]  { background: #2980b9; color: #FDDC5C; }
+.chip[data-amount="25"]  { background: #27ae60; color: #FDDC5C; }
+.chip[data-amount="50"]  { background: #8e44ad; color: #FDDC5C; }
+.chip[data-amount="100"] { background: #000000; color: #FDDC5C; }
+
+#bet-display {
+  margin-left: auto;                /* Margin left auto to push it to the right */
+  background: rgba(0,0,0,0.3);    /* Background of the bet display */
+  padding: 6px 14px;                /* Padding of the bet display */   
+  border-radius: 20px;              /* Border radius of the bet display */
+  font-size: 14px;                  /* Font size of the bet display */
+  color: #f0c060;                 /* Color of the bet display */
+}
+
+/*  Action buttons  */
+#actions {
+  display: flex;    /* Display flex */
+  gap: 10px;        /* Gap between buttons */
+  flex-wrap: wrap;  /* Wrap buttons to the next line if needed */
+}
+
+#actions button {
+  padding: 10px 20px;                               /* Padding of the buttons */
+  border-radius: 8px;                               /* Border radius of the buttons */            
+  border: 1px solid rgba(255,255,255,0.2);        /* Border of the buttons */
+  cursor: pointer;                                  /* Cursor pointer to indicate it's clickable */         
+  font-size: 14px;                                  /* Font size of the buttons */           
+  font-family: Georgia, serif;                      /* Font family of the buttons (same as the body for consistency) */            
+  transition: opacity 0.15s, transform 0.1s;        /* Transition for opacity and transform to make the hover/active effects smooth */
+}
+
+#actions button:hover:not(:disabled) { opacity: 0.85; }             /* Slightly fade the button on hover to indicate it's clickable, but only if it's not disabled */
+#actions button:active:not(:disabled) { transform: scale(0.97); }   /* Scale down the button on click to give feedback, but only if it's not disabled */
+#actions button:disabled { opacity: 0.3; cursor: not-allowed; }     /* When disabled, fade out the button and change cursor to indicate it's not clickable. */
+
+/* Button colors */
+#btn-clear      { background: transparent; color: #a0c0a8; }
+#btn-deal       { background: #b78e3c; color: #1a1a1a; font-weight: bold; }
+#btn-hit        { background: #27ae60; color: #fff; }
+#btn-stand      { background: #c0392b; color: #fff; }
+#btn-double     { background: #192aef; color: #fff; }
+#btn-split      { background: #0dd359; color: #fff; }
+#btn-insurance  { background: #db15e5; color: #fff; }
+#btn-surrender  { background: #ffffff; color: #000000; }
