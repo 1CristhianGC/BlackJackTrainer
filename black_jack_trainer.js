@@ -31,8 +31,7 @@ function buildDeck() {
   return shuffle(deck);
 }
 
-
-// Fisher-Yates shuffle: the standard, unbiased way to randomise an array.
+// Fisher-Yates shuffle
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -40,7 +39,6 @@ function shuffle(array) {
   }
   return array; 
 }
-
 
 // ══════════════════════════════════════════════
 //  2. SCORING
@@ -51,7 +49,6 @@ function rankValue(rank) {
   if (['J', 'Q', 'K'].includes(rank)) return 10;
   return parseInt(rank); 
 }
-
 
 // Calculates the best possible score for a hand.
 function handScore(hand) {
@@ -80,7 +77,6 @@ function isBlackjack(hand) {
   return handScore(hand) === 21 && hand.length === 2;
 }
 
-
 // ══════════════════════════════════════════════
 //  3. GAME STATE
 let deck       = [];    // the current deck — an array of card objects
@@ -90,13 +86,12 @@ let balance    = 1000;  // player's total money
 let bet        = 0;     // how much the player has wagered this hand
 let gameActive = false; // true while a hand is in progress, false between hands
 
-let handIndex = 0;
+let currentHandIdx = 0;
 let bets = [];
 let splitAces = false;
 
 // ══════════════════════════════════════════════
 //  4. DOM HELPERS
-
 
 // Generates the HTML string for one card.
 function cardHTML(card, faceDown = false) {
@@ -114,7 +109,6 @@ function cardHTML(card, faceDown = false) {
     </div>
   `;
 }
-
 
 // Redraws both hands on the page.
 function renderHands(revealDealer = false) {
@@ -161,7 +155,6 @@ function renderHands(revealDealer = false) {
   }).join('');
 }
 
-
 // Set the middle message
 function setMessage(text) {
   document.getElementById('message').textContent = text;
@@ -176,7 +169,6 @@ function updateBalance() {
 function updateBetDisplay() {
   document.getElementById('current-bet').textContent = bet;
 }
-
 
 // Enables or disables buttons depending on whether a hand is active.
 function setButtons(inGame) {
@@ -199,20 +191,20 @@ function setButtons(inGame) {
   });
 }
 
+// Determines if the player can split given their hand. 
 function canSplit(inGame) {
   if (!inGame) return false;
 
   const hand = playerHands[currentHandIdx];
   if (!hand || hand.length !== 2) return false;          
   if (hand[0].rank !== hand[1].rank) return false;      
-  if (playerHands.length > 1) return false;              
+  if (playerHands.length > 1) return false;             
   if (balance < bets[currentHandIdx]) return false;      
 
   return true;
 }
 
-
-// Called when the player clicks Split.
+// Allows the player to split their current hand. 
 function split() {
   const originalBet = bets[currentHandIdx];
 
@@ -243,10 +235,10 @@ function split() {
   setMessage('Hand 1: Hit or Stand?');
 }
 
-
 // ══════════════════════════════════════════════
 //  6. GAME FLOW
 
+// This will allow the player to deal once they have placed their bet. 
 function deal() {
   if (bet === 0) {
     setMessage('Place a bet first!');
@@ -276,7 +268,7 @@ function deal() {
   setMessage('Hit or Stand?');
 }
 
-
+// This function will allow the player to hit. Will determine if they can hit again. 
 function hit() {
   const hand = playerHands[currentHandIdx];
   hand.push(deck.pop());
@@ -295,12 +287,12 @@ function hit() {
   }
 }
 
-
+// This function will allow the player to stand on a hand.
 function stand() {
   endCurrentHand();
 }
 
-
+// This function will allow the player to double down on a hand. Adds double down logic 
 function doubleDown() {
   const handBet = bets[currentHandIdx];
 
@@ -320,11 +312,10 @@ function doubleDown() {
   }
 }
 
-
 // ══════════════════════════════════════════════
 //  7. HAND SEQUENCING  (NEW)
 
-// Called when the current hand is complete.
+// End the current hand being played. 
 function endCurrentHand() {
   if (currentHandIdx < playerHands.length - 1) {
 
@@ -347,7 +338,7 @@ function endCurrentHand() {
   }
 }
 
-// Runs the dealer's turn: reveal hidden card, draw to 17+, then end round.
+// Runs the dealers hand. Does not push on 17. 
 function runDealer() {
   setButtons(false);    
   renderHands(true);    
@@ -365,10 +356,10 @@ function runDealer() {
   setTimeout(dealerDraw, 600);
 }
 
-
 // ══════════════════════════════════════════════
 //  8. ROUND RESOLUTION
 
+// Ends the round. Resets the variables, the hands, and the buttons.
 function endRound() {
   gameActive = false;
   renderHands(true);
@@ -389,13 +380,13 @@ function endRound() {
     let payout = 0;
 
     if (playerBJ && dealerBJ) {
-      msg    = `${label}Push (both BJ)`;
+      msg    = `${label}Push!`;
       payout = handBet;                      
     } else if (playerBJ) {
       msg    = `${label}Blackjack!`;
       payout = Math.floor(handBet * 2.5);    
     } else if (isBust(hand)) {
-      msg    = `${label}Bust`;
+      msg    = `${label}Bust!`;
       payout = 0;
     } else if (isBust(dealerHand)) {
       msg    = `${label}Dealer busts, you win!`;
@@ -404,7 +395,7 @@ function endRound() {
       msg    = `${label}You win!`;
       payout = handBet * 2;
     } else if (ps < ds) {
-      msg    = `${label}Dealer wins`;
+      msg    = `${label}Dealer wins!`;
       payout = 0;
     } else {
       msg    = `${label}Push`;
@@ -436,12 +427,21 @@ function endRound() {
       setMessage('Balance topped up to $1000!');
     }, 1500);
   }
+
+  setTimeout(clearTable, 2000); 
 }
 
+// Clears the table after every round. Clears the scores and the card containers.
+function clearTable() {
+  document.getElementById('dealer-cards').innerHTML = '';
+  document.getElementById('dealer-score').textContent = '';
+  document.getElementById('player-hands-container').innerHTML = '';
+}
 
 // ══════════════════════════════════════════════
 //  9. BETTING  
 
+// Add to the current bet. Adds to the total currentBet if the game is not active.
 function addBet(amount) {
   if (gameActive) return;
   if (bet + amount > balance) {
@@ -453,6 +453,7 @@ function addBet(amount) {
   setMessage(`Bet: $${bet} — Click Deal when ready`);
 }
 
+// Clear the current bet. Resets currentBet to 0 if the game is not active.
 function clearBet() {
   if (gameActive) return;
   bet = 0;
@@ -464,14 +465,18 @@ function clearBet() {
 // ══════════════════════════════════════════════
 //  10. EVENT LISTENERS
 
+// Add actionable feedback to the buttons. 
 document.getElementById('btn-deal').addEventListener('click',   deal);
 document.getElementById('btn-hit').addEventListener('click',    hit);
 document.getElementById('btn-stand').addEventListener('click',  stand);
 document.getElementById('btn-double').addEventListener('click', doubleDown);
 document.getElementById('btn-clear').addEventListener('click',  clearBet);
-document.getElementById('btn-split').addEventListener('click',  split);  // NEW
+document.getElementById('btn-split').addEventListener('click',  split);  // NE
+//document.getElementById('btn-insurance').addEventListener('click',  insurance);
+//document.getElementById('btn-surrender').addEventListener('click',  surrender);  // NEW
 
 
+// Activate the chips to allow for betting
 document.querySelectorAll('.chip').forEach(chip => {
   chip.addEventListener('click', () => {
     addBet(parseInt(chip.dataset.amount));
@@ -480,7 +485,14 @@ document.querySelectorAll('.chip').forEach(chip => {
 
 
 // ══════════════════════════════════════════════
-//  11. INIT
+//  11. INITIALIZATION
 
 setMessage('Place your bet and deal!');
 setButtons(false);
+
+
+
+// To-do : Insurance and surrender 
+
+// Insurance: Deal, endRound, setButtons
+// Surrender: Deal, endRound, setButtons

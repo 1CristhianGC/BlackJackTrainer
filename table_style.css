@@ -116,7 +116,7 @@ body {
 
 /*  Individual card  */
 .card {
-  width: 53px;                                    /* Width of a card (standard poker card ratio) */
+  width: 56px;                                    /* Width of a card (standard poker card ratio) */
   height: 80px;                                   /* Height of a card */
   background: #ffffff;                          /* Background of a card */
   border-radius: 10px;                            /* Border radius of a card */
@@ -172,16 +172,20 @@ color: #000000;                                 /* Color of a card */
   display: none;              /* Hide the rank and suit on a face-down card */
 }
 
-/* Score badge  */
-#dealer-score,
-#player-score {
-  background: rgba(0,0,0,0.3);    /* Background of the score badge */
-  border-radius: 10px;              /* Border radius of the score badge */
-  padding: 1px 8px;                 /* Padding of the score badge */        
-  font-size: 15px;                  /* Font size of the score badge */ 
-  color: #80d0a0;                 /* Color of the score badge */
-  margin-left: 6px;                 /* Margin left of the score badge */
+.score-badge {
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  padding: 1px 8px;
+  font-size: 12px;
+  color: #80d0a0;
 }
+
+
+#dealer-score { margin-left: 6px; }
+
+.score-badge.bust { color: #e07070; }   /* red for bust */
+.score-badge.bj   { color: #f0c060; }   /* gold for blackjack */
+
 
 /*  Message  */
 #message {
